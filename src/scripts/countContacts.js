@@ -1,7 +1,7 @@
-import { readContacts } from "../utils/readContacts.js";
+import { readContactsAsArray } from "../utils/readContactsAsArray.js";
 
 export const countContacts = async () => {
-  const arr = await readContacts();
+  const arr = await readContactsAsArray();
   return arr.length;
 };
 
