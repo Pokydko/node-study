@@ -16,5 +16,15 @@ export const readContacts = async () => {
       );
     }
   }
+
+  if (data === "" || data === `\n`) return [];
+
+  try {
+    data = JSON.parse(data);
+  } catch (e) {
+    console.error("Error during parsing json:", e);
+    data = [];
+  }
+
   return data;
 };

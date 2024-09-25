@@ -1,8 +1,13 @@
 import { createFakeContact } from "../utils/createFakeContact.js";
-import { writeContactsAppendFile } from "../utils/writeContactsAppendFile.js";
+import { readContacts } from "../utils/readContacts.js";
+import { writeContacts } from "../utils/writeContacts.js";
 
 const generateContacts = async (number) => {
-  while (number-- > 0) writeContactsAppendFile(createFakeContact());
+  let newContacts = [];
+  while (number-- > 0) newContacts.push(createFakeContact());
+
+  const existContacts = await readContacts();
+  writeContacts(existContacts.concat(newContacts));
 };
 
 generateContacts(5);

@@ -1,8 +1,12 @@
 import { createFakeContact } from "../utils/createFakeContact.js";
-import { writeContactsAppendFile } from "../utils/writeContactsAppendFile.js";
+import { readContacts } from "../utils/readContacts.js";
+import { writeContacts } from "../utils/writeContacts.js";
 
 export const addOneContact = async () => {
-  writeContactsAppendFile(createFakeContact());
+  let existContacts = await readContacts();
+  existContacts.push(createFakeContact());
+
+  writeContacts(existContacts);
 };
 
 addOneContact();
