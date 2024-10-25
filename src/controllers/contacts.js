@@ -47,7 +47,19 @@ export const getContactsByIdController = async (req, res, next) => {
 };
 
 export const createContactController = async (req, res) => {
-  const contactData = { ...req.body, userId: req.user._id };
+  let contactData = { ...req.body, userId: req.user._id };
+
+  const photo = req.file;
+  if (photo) {
+    let photoUrl;
+    try {
+      photoUrl = await saveFileToCloudinary(photo);
+    } catch (error) {
+      throw httpErrors(401, `Cloudinary error. ${error}`);
+    }
+    contactData = { ...contactData, photo: photoUrl };
+  }
+
   const contact = await createContact(contactData);
 
   res.status(201).json({
@@ -58,20 +70,24 @@ export const createContactController = async (req, res) => {
 };
 
 export const patchContactController = async (req, res) => {
-  const { contactId } = req.params;
-  const photo = req.file;
+  let contactData = {
+    ...req.body,
+    userId: req.user._id,
+    contactId: req.params.contactId,
+  };
 
-  let photoUrl;
-  try {
-    photoUrl = await saveFileToCloudinary(photo);
-  } catch (error) {
-    throw httpErrors(401, `Cloudinary error: ${error}`);
+  const photo = req.file;
+  if (photo) {
+    let photoUrl;
+    try {
+      photoUrl = await saveFileToCloudinary(photo);
+    } catch (error) {
+      throw httpErrors(401, `Cloudinary error. ${error}`);
+    }
+    contactData = { ...contactData, photo: photoUrl };
   }
 
-  const result = await updateContact(req.user._id, contactId, {
-    ...req.body,
-    photo: photoUrl,
-  });
+  const result = await updateContact(contactData);
 
   if (!result) {
     throw httpErrors(404, "Contact not found / Access declined");
