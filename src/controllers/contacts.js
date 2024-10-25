@@ -55,7 +55,7 @@ export const createContactController = async (req, res) => {
     try {
       photoUrl = await saveFileToCloudinary(photo);
     } catch (error) {
-      throw httpErrors(401, `Cloudinary error. ${error}`);
+      throw httpErrors(500, `Cloudinary error. ${error}`);
     }
     contactData = { ...contactData, photo: photoUrl };
   }
@@ -82,7 +82,7 @@ export const patchContactController = async (req, res) => {
     try {
       photoUrl = await saveFileToCloudinary(photo);
     } catch (error) {
-      throw httpErrors(401, `Cloudinary error. ${error}`);
+      throw httpErrors(500, `Cloudinary error. ${error}`);
     }
     contactData = { ...contactData, photo: photoUrl };
   }
