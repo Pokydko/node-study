@@ -1,6 +1,6 @@
 {
   "name": "node-study",
-  "version": "1.4.0",
+  "version": "1.6.0",
   "description": "goit-node-js-m4",
   "type": "module",
   "main": "index.js",
@@ -21,13 +21,17 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
+    "handlebars": "^4.7.8",
     "http-errors": "^2.0.0",
     "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.3",
+    "nodemailer": "^6.9.15",
     "pino-http": "^10.3.0"
   }
 }

@@ -9,6 +9,7 @@ import httpErrors from "http-errors";
 import { parsePaginationParams } from "../utils/parsePaginationParams.js";
 import { parseSortParams } from "../utils/parseSortParams.js";
 import { parseFilterParams } from "../utils/parseFilterParams.js";
+import { saveFileToCloudinary } from "../utils/saveFileToCloudinary.js";
 
 export const getContactsController = async (req, res) => {
   const userId = req.user._id;
@@ -58,7 +59,19 @@ export const createContactController = async (req, res) => {
 
 export const patchContactController = async (req, res) => {
   const { contactId } = req.params;
-  const result = await updateContact(req.user._id, contactId, req.body);
+  const photo = req.file;
+
+  let photoUrl;
+  try {
+    photoUrl = await saveFileToCloudinary(photo);
+  } catch (error) {
+    throw httpErrors(401, `Cloudinary error: ${error}`);
+  }
+
+  const result = await updateContact(req.user._id, contactId, {
+    ...req.body,
+    photo: photoUrl,
+  });
 
   if (!result) {
     throw httpErrors(404, "Contact not found / Access declined");
