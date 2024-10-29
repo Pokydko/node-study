@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  version: 1.7.0
+  version: 1.7.1
   title: Contacts app (learning project)
   license:
     name: Apache 2.0

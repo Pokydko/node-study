@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "version": "1.7.0",
+    "version": "1.7.1",
     "title": "Contacts app (learning project)",
     "license": {
       "name": "Apache 2.0",
@@ -254,9 +254,9 @@
                     ]
                   },
                   "photo": {
-                    "description": "Link to contact's photo",
+                    "description": "Contact's photo upload",
                     "type": "string",
-                    "example": "https://res.cloudinary.com/deoxrcsvx/image/upload/v1729857245/image.png"
+                    "format": "binary"
                   }
                 }
               }
@@ -381,6 +381,51 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "description": "Contact's name (3-20 chars)",
+                    "type": "string",
+                    "example": "John Doe"
+                  },
+                  "phoneNumber": {
+                    "description": "Contact's phone number (3-20 chars)",
+                    "type": "string",
+                    "example": "0991234567"
+                  },
+                  "email": {
+                    "description": "Contact's email (3-20 chars)",
+                    "type": "string",
+                    "example": "mail@example.com"
+                  },
+                  "isFavourite": {
+                    "description": "Whether is contact in favourite list",
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "contactType": {
+                    "description": "Contact's type (default: personal)",
+                    "type": "string",
+                    "enum": [
+                      "work",
+                      "home",
+                      "personal"
+                    ]
+                  },
+                  "photo": {
+                    "description": "Contact's photo upload",
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Update contact",

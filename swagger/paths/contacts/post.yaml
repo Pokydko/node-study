@@ -37,9 +37,9 @@ requestBody:
             type: string
             enum: ["work", "home", "personal"]
           photo:
-            description: "Link to contact's photo"
+            description: "Contact's photo upload"
             type: string
-            example: https://res.cloudinary.com/deoxrcsvx/image/upload/v1729857245/image.png
+            format: binary
 responses:
   "201":
     description: Creates a contact
