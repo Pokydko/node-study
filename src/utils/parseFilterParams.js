@@ -11,9 +11,7 @@ const parseString = (string) => {
 // };
 
 const parseContactType = (contactType) => {
-  console.log(["work", "home", "personal"].includes(contactType.toLowerCase()));
-  console.log(contactType);
-
+  if (!contactType) return;
   return ["work", "home", "personal"].includes(contactType.toLowerCase())
     ? contactType
     : undefined;
