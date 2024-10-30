@@ -11,12 +11,12 @@ const parseString = (string) => {
 // };
 
 const parseContactType = (contactType) => {
-  const isString = typeof contactType === "string";
-  if (!isString) return;
-  const isContactType = (contactType) =>
-    ["work", "home", "personal"].includes(contactType);
+  console.log(["work", "home", "personal"].includes(contactType.toLowerCase()));
+  console.log(contactType);
 
-  if (isContactType(contactType)) return contactType;
+  return ["work", "home", "personal"].includes(contactType.toLowerCase())
+    ? contactType
+    : undefined;
 };
 
 const parseBoolean = (boolean) => {
@@ -27,9 +27,10 @@ const parseBoolean = (boolean) => {
 };
 
 export const parseFilterParams = (query) => {
-  const { type, isFavourite, phoneNumber, name, email } = query;
+  console.log(query);
+  const { contactType, isFavourite, phoneNumber, name, email } = query;
 
-  const parsedContactType = parseContactType(type);
+  const parsedContactType = parseContactType(contactType);
   const parsedIsFavourite = parseBoolean(isFavourite);
   const parsedPhoneNumber = parseString(phoneNumber);
   const parsedName = parseString(name);
