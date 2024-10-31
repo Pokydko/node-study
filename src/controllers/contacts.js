@@ -106,7 +106,7 @@ export const deleteContactController = async (req, res) => {
   const contact = await deleteContact(req.user._id, contactId);
 
   if (!contact) {
-    throw httpErrors(403, `Contact not found / Access declined`);
+    throw httpErrors(404, `Contact not found / Access declined`);
   }
 
   res.status(204).send();
